@@ -99,3 +99,24 @@ const displaySearchHistory = () => {
         historyList.appendChild(button);
     });
 }
+
+// Locate the searched city on the map
+const getCityCoordinates = (cityName = null) => {
+    cityName = cityName || cityInput.value.trim();
+    if (!cityName) return;
+    const GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+
+    // Get entered city coordinates (name, latitude, and longitude) from the API response
+    fetch(GEOCODING_API_URL).then(res => res.json()).then(data => {
+        if (!data.length) return alert(`No coordinates found for ${cityName}`);
+        const { name, lat, lon } = data[0];
+        getWeatherDetails(name, lat, lon);
+        weatherDataDiv.style.display = "block";
+        updateSearchHistory(name);
+    }).catch(() => {
+        alert("An error occurred while fetching the coordinates!");
+    });
+}
+
+searchButton.addEventListener("click", getCityCoordinates);
+cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates());
