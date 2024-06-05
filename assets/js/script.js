@@ -43,7 +43,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
                 return true;
             }
             return false;
-        }).slice(0, 6); // Get today's forecast and the next five days forecast
+        }).slice(0, 5); // Get today's forecast and the next five days forecast
 
         // Clearing previous weather data
         cityInput.value = "";
