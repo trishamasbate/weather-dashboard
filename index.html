@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./assets/js/script.js" defer></script>
+  </head>
+  <body>
+    <h1>Weather Dashboard</h1>
+    <div class="container">
+      <div class="weather-input">
+        <h2>Search for a City:</h2>
+        <input class="city-input" type="text" placeholder="e.g. Salt Lake City">
+        <button class="search-btn">Search</button>
+        <div class="separator"></div>
+        <div class="search-history">
+          <ul class="history-list">
+            <!-- Search history will be added here by JavaScript -->
+          </ul>
+        </div>
+      </div>
+      <div class="weather-data">
+        <div class="current-weather">
+          <div class="details">
+            <h2 id="city-name"></h2>
+            <h4 id="temperature"></h4>
+            <h4 id="wind"></h4>
+            <h4 id="humidity"></h4>
+          </div>
+          <div class="icon">
+            <img id="weather-icon" src="" alt="Weather Icon">
+            <h4 id="weather-description"></h4>
+          </div>
+        </div>
+        <div class="days-forecast">
+          <h2>5-Day Forecast:</h2>
+          <ul class="weather-cards">
+            <!-- Weather cards will be added here by JavaScript -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
