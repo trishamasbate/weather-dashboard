@@ -63,3 +63,39 @@ const getWeatherDetails = (cityName, lat, lon) => {
         alert("An error occurred while fetching the weather forecast!");
     });
 }
+
+// Function to update search history
+const updateSearchHistory = (cityName) => {
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    if (!searchHistory.includes(cityName)) {
+        searchHistory.push(cityName);
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
+    displaySearchHistory();
+}
+
+// Function to display search history
+const displaySearchHistory = () => {
+    const historyList = document.querySelector(".history-list");
+    historyList.innerHTML = '';
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    searchHistory.forEach(city => {
+        const button = document.createElement('button');
+        button.textContent = city;
+        button.style.width = '100%';
+        button.style.margin = '5px 0';
+        button.style.padding = '10px 0';
+        button.style.cursor = 'pointer';
+        button.style.outline = 'none';
+        button.style.border = 'none';
+        button.style.borderRadius = '4px';
+        button.style.fontSize = '1rem';
+        button.style.color = '#323D4F';
+        button.style.background = '#AEAEAE';
+        button.style.transition = '0.2s ease';
+        button.addEventListener('click', () => {
+            getCityCoordinates(city);
+        });
+        historyList.appendChild(button);
+    });
+}
