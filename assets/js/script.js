@@ -31,34 +31,35 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 }
 
 const getWeatherDetails = (cityName, lat, lon) => {
-    const CURRENT_API_URL = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
     const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
-
-    fetch(CURRENT_API_URL).then(res => res.json()).then(data => {
-        const todayForecast = createWeatherCard(cityName, data.current, 0);
-        currentWeatherDiv.innerHTML = todayForecast;
-    });
 
     fetch(WEATHER_API_URL).then(res => res.json()).then(data => {
         // Filter the forecasts to get only one forecast per day
+        const uniqueForecastDays = [];
         const sixDaysForecast = data.list.filter(forecast => {
-            const forecastTime = new Date(forecast.dt_txt).getHours();
             const forecastDate = new Date(forecast.dt_txt).getDate();
-            const currentDate = new Date().getDate();
-            return forecastTime === 12 && (forecastDate === currentDate || forecastDate > currentDate);
-        }).slice(0, 5); // Get today's forecast and the next five days forecast
+            if (!uniqueForecastDays.includes(forecastDate)) {
+                uniqueForecastDays.push(forecastDate);
+                return true;
+            }
+            return false;
+        }).slice(0, 6); // Get today's forecast and the next five days forecast
 
         // Clearing previous weather data
         cityInput.value = "";
+        currentWeatherDiv.innerHTML = "";
         weatherCardsDiv.innerHTML = "";
 
         // Creating weather cards and adding them to the DOM
         sixDaysForecast.forEach((weatherItem, index) => {
-            const html = createWeatherCard(cityName, weatherItem, index + 1);
-            weatherCardsDiv.insertAdjacentHTML("beforeend", html);
+            const html = createWeatherCard(cityName, weatherItem, index);
+            if (index === 0) {
+                currentWeatherDiv.insertAdjacentHTML("beforeend", html);
+            } else {
+                weatherCardsDiv.insertAdjacentHTML("beforeend", html);
+            }
         });        
-    })
-    .catch(() => {
+    }).catch(() => {
         alert("An error occurred while fetching the weather forecast!");
     });
 }
