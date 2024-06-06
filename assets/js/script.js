@@ -35,15 +35,11 @@ const getWeatherDetails = (cityName, lat, lon) => {
 
     fetch(WEATHER_API_URL).then(res => res.json()).then(data => {
         // Filter the forecasts to get only one forecast per day
-        const uniqueForecastDays = [];
+        const currentDate = new Date().getDate();
         const sixDaysForecast = data.list.filter(forecast => {
             const forecastDate = new Date(forecast.dt_txt).getDate();
-            if (!uniqueForecastDays.includes(forecastDate)) {
-                uniqueForecastDays.push(forecastDate);
-                return true;
-            }
-            return false;
-        }).slice(0, 5); // Get today's forecast and the next five days forecast
+            return forecastDate === currentDate || forecastDate > currentDate;
+        }).slice(0, 6); // Get today's forecast and the next five days forecast
 
         // Clearing previous weather data
         cityInput.value = "";
@@ -59,7 +55,8 @@ const getWeatherDetails = (cityName, lat, lon) => {
                 weatherCardsDiv.insertAdjacentHTML("beforeend", html);
             }
         });        
-    }).catch(() => {
+    })
+    .catch(() => {
         alert("An error occurred while fetching the weather forecast!");
     });
 }
