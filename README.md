@@ -29,7 +29,7 @@ git clone
 
 Below is a preview showing the functionality of the Weather Forecast Dashboard:
 
-![Weather Dashboard Screenshot]()
+![Weather Dashboard Screenshot](./assets/images/forecast.png)
 
 
 ## ✏️ Credits
