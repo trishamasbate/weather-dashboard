@@ -20,11 +20,11 @@ To run the Weather Forecast Dashboard, you can do either of the following:
 
 * Use the link:
   
-  [Weather Dashboard]()
+  [Weather Dashboard](https://trishamasbate.github.io/weather-dashboard/)
 
 * Clone the repository:
 ```
-git clone
+git clone git@github.com:trishamasbate/weather-dashboard.git
 ```
 
 Below is a preview showing the functionality of the Weather Forecast Dashboard:
