@@ -118,5 +118,14 @@ const getCityCoordinates = (cityName = null) => {
     });
 }
 
-searchButton.addEventListener("click", getCityCoordinates);
-cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates());
+// Modify the event listener on the search button
+searchButton.addEventListener("click", () => getCityCoordinates());
+
+// Modify the event listener on the city input field
+cityInput.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+        getCityCoordinates();
+    }
+});
+
+window.onload = displaySearchHistory;
