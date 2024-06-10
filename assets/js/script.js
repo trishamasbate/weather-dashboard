@@ -108,13 +108,18 @@ const getCityCoordinates = (cityName = null) => {
 
     // Get entered city coordinates (name, latitude, and longitude) from the API response
     fetch(GEOCODING_API_URL).then(res => res.json()).then(data => {
-        if (!data.length) return alert(`No coordinates found for ${cityName}`);
+        if (!data.length) {
+            weatherDataDiv.style.display = "block";
+            weatherDataDiv.innerHTML = `<p>No coordinates found for ${cityName}. Please try another city.</p>`;
+            return;
+        }
         const { name, lat, lon } = data[0];
         getWeatherDetails(name, lat, lon);
         weatherDataDiv.style.display = "block";
         updateSearchHistory(name);
     }).catch(() => {
-        alert("An error occurred while fetching the coordinates!");
+        weatherDataDiv.style.display = "block";
+        weatherDataDiv.innerHTML = "<p>An error occurred while fetching the coordinates!</p>";
     });
 }
 
